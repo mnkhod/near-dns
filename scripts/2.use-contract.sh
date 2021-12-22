@@ -34,4 +34,24 @@ near call $CONTRACT getDomain '{"domainName":"mnkhod"}' --accountId $CONTRACT
 
 echo
 echo
+echo ---------------------------------------------------------
+echo "Step 3: Testing OverwriteDomain - Setting "
+echo
+echo ---------------------------------------------------------
+echo
+
+near call $CONTRACT overwriteDomain '{"domainName":"mnkhod","domainIPAddress":"179.60.192.36"}' --accountId $CONTRACT
+
+echo
+echo
+echo ---------------------------------------------------------
+echo "Step 4: Testing OverwriteDomain - Getting"
+echo
+echo ---------------------------------------------------------
+echo
+
+near call $CONTRACT getDomain '{"domainName":"mnkhod"}' --accountId $CONTRACT
+
+echo
+echo
 exit 0
