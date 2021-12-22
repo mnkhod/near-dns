@@ -1,31 +1,27 @@
-@nearBindgen
-export class Contract {
-  private domainBox = new Map<string,string>();
+import {  PersistentMap } from "near-sdk-as";
+import { storage, Context } from "near-sdk-as"
 
-  getDomain(domainName: string): string {
-    if(this.domainBox.has(domainName)) {
+export const domainBox = new PersistentMap<string, string>("m");
+
+
+export function getDomain(domainName: string): string|null {
+    if(domainBox.contains(domainName)) {
       return "Already has that domain";
     }
 
-    try{
-      let domain = this.domainBox.get(domainName);
-      return domain;
-    }catch(e){
-      return `Something Happened - ${e.message}`;
+    if(domainBox.get(domainName) == null){
+      return "Not Found";
     }
-  }
 
-  setDomain(domainName: string,domainIPAddress: string): string {
-    if(this.domainBox.has(domainName)) {
+    return domainBox.get(domainName);
+}
+
+export function setDomain(domainName: string,domainIPAddress: string): string {
+    if(domainBox.contains(domainName)) {
       return "Already has that domain";
     }
 
-    try{
-      this.domainBox.set(domainName,domainIPAddress);
-      return `Added ${domainName} to ${domainIPAddress} address`;
-    }catch(e){
-      return `Something Happened - ${e.message}`;
-    }
-  }
+    domainBox.set(domainName,domainIPAddress);
+    return `Added "${domainName}" to "${domainIPAddress}" address`;
 }
 

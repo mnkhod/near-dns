@@ -15,31 +15,23 @@ echo
 echo
 echo
 echo ---------------------------------------------------------
-echo "Step 1: Call 'view' functions on the contract"
+echo "Step 1: Setting Domain To Ip Address"
 echo
-echo "(run this script again to see changes made by this file)"
 echo ---------------------------------------------------------
 echo
 
-near view $CONTRACT helloWorld
-
-echo
-echo
-
-near view $CONTRACT read '{"key":"some-key"}'
+near call $CONTRACT setDomain '{"domainName":"mnkhod","domainIPAddress":"142.250.72.100"}' --accountId $CONTRACT
 
 echo
 echo
 echo ---------------------------------------------------------
-echo "Step 2: Call 'change' functions on the contract"
+echo "Step 2: Calling getDomain on the domain we registered "
+echo
 echo ---------------------------------------------------------
 echo
 
-# the following line fails with an error because we can't write to storage without signing the message
-# --> FunctionCallError(HostError(ProhibitedInView { method_name: "storage_write" }))
-# near view $CONTRACT write '{"key": "some-key", "value":"some value"}'
-near call $CONTRACT write '{"key": "some-key", "value":"some value"}' --accountId $CONTRACT
+near call $CONTRACT getDomain '{"domainName":"mnkhod"}' --accountId $CONTRACT
 
 echo
-echo "now run this script again to see changes made by this file"
+echo
 exit 0
