@@ -1,5 +1,4 @@
-import {  PersistentMap } from "near-sdk-as";
-import { storage, Context } from "near-sdk-as"
+import { storage, Context, PersistentMap } from "near-sdk-as"
 
 export const domainBox = new PersistentMap<string, string>("m");
 
